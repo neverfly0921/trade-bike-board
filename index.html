@@ -3,46 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏍️ 貿易車報價看板</title>
+<title>貿易車報價看板</title>
 <style>
-  :root{--bg:#0f1420;--card:#1a2233;--line:#2a3550;--txt:#e8edf7;--sub:#8ea0c0;--accent:#4da3ff;--price:#ff6b6b;--chip:#243049;}
+  :root{color-scheme:light;--bg:#f5f6f8;--card:#ffffff;--line:#e3e6eb;--txt:#1f2937;--sub:#6b7280;--accent:#1d4ed8;--price:#b91c1c;--chip:#f0f2f5;}
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--txt);padding:20px;}
+  body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;background:var(--bg);color:var(--txt);padding:24px 20px;}
   .wrap{max-width:1200px;margin:0 auto;}
-  h1{font-size:22px;margin-bottom:2px;}
-  .meta{color:var(--sub);font-size:13px;margin-bottom:16px;}
+  h1{font-size:20px;font-weight:700;letter-spacing:.5px;margin-bottom:2px;}
+  .meta{color:var(--sub);font-size:13px;margin-bottom:20px;}
   .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px;}
-  .bar input,.bar select{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:8px 12px;border-radius:8px;font-size:14px;}
+  .bar input,.bar select{background:var(--card);border:1px solid var(--line);color:var(--txt);padding:8px 12px;border-radius:6px;font-size:14px;}
+  .bar input:focus,.bar select:focus{outline:2px solid var(--accent);outline-offset:-1px;}
   .bar input{flex:1;min-width:180px;}
   .chips{display:flex;gap:6px;flex-wrap:wrap;}
-  .chip{background:var(--chip);border:1px solid var(--line);color:var(--sub);padding:6px 12px;border-radius:20px;font-size:13px;cursor:pointer;user-select:none;}
-  .chip.on{background:var(--accent);color:#06101f;border-color:var(--accent);font-weight:700;}
-  .stats{display:flex;gap:18px;margin-bottom:14px;flex-wrap:wrap;}
-  .stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 16px;}
+  .chip{background:var(--chip);border:1px solid var(--line);color:var(--sub);padding:6px 12px;border-radius:6px;font-size:13px;cursor:pointer;user-select:none;}
+  .chip:hover{border-color:var(--accent);color:var(--accent);}
+  .chip.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;}
+  .stats{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 18px;min-width:110px;}
   .stat .n{font-size:20px;font-weight:700;}
-  .stat .l{font-size:12px;color:var(--sub);}
-  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;}
+  .stat .l{font-size:12px;color:var(--sub);margin-top:2px;}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(16,24,40,.04);}
   th,td{padding:11px 12px;text-align:left;font-size:13.5px;border-bottom:1px solid var(--line);vertical-align:top;}
-  th{background:#131a29;color:var(--sub);font-weight:600;cursor:pointer;white-space:nowrap;}
+  th{background:#f9fafb;color:var(--sub);font-weight:600;cursor:pointer;white-space:nowrap;border-bottom:2px solid var(--line);}
   th:hover{color:var(--accent);}
-  tr:hover td{background:#202a40;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:#f3f6fc;}
   .brand{font-weight:700;}
   .price{color:var(--price);font-weight:700;white-space:nowrap;}
   .na{color:var(--sub);}
-  .tag{display:inline-block;padding:2px 8px;border-radius:6px;font-size:11.5px;}
-  .t-new{background:#14432f;color:#6ee7a0;}
-  .t-used{background:#123a4a;color:#6ec9e7;}
-  .t-show{background:#3a3313;color:#e7cf6e;}
-  .t-deal{background:#2a2540;color:#b79bff;}
+  .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11.5px;font-weight:500;}
+  .t-new{background:#ecfdf5;color:#047857;}
+  .t-used{background:#eff6ff;color:#1d4ed8;}
+  .t-show{background:#fffbeb;color:#b45309;}
+  .t-deal{background:#f5f3ff;color:#6d28d9;}
   a.src{color:var(--accent);text-decoration:none;font-size:12.5px;}
   a.src:hover{text-decoration:underline;}
   .foot{color:var(--sub);font-size:12px;margin-top:16px;line-height:1.7;}
   .colors{color:var(--sub);font-size:12px;}
+  @media (max-width:640px){body{padding:14px 10px;}th,td{padding:8px 8px;font-size:12.5px;}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>🏍️ 貿易車報價看板</h1>
+  <h1>貿易車報價看板</h1>
   <div class="meta">資料更新：<span id="upd">2026-07-06</span>　·　來源：FB 貿易商粉專／社團（每日巡抓彙整）</div>
   <div class="stats" id="stats"></div>
   <div class="bar">
@@ -76,10 +80,8 @@
     <tbody id="tb"></tbody>
   </table>
   <div class="foot">
-    ⚠️ 價格以貼文當下為準，多數需私訊確認實際落地價。「—」表示該貼文未標價（交車照／需私訊）。<br>
-    🎯 目標車款：HONDA DAX 125／Monkey 125／CT125／ST125／Super Cub C125／CC110／CC50／CB350／Super Cub 110；YAMAHA MT-09／MT-09 SP／XSR900／XSR900 GP／XSR155。<br>
-    追蹤來源（12）：飛翔重車Fly-高雄三民、二寶重機販賣部、少年董重車、小婷車庫、爵士輕重型機車買賣、長崎二輪、黃宥邁同好會、本田家族買賣版、HONDA DAX125 TW、台灣本田小狼系列國民車俱樂部、台灣HONDA臘腸狗DAX ST125改裝交流、黃宥邁。<br>
-    更新方式：每次巡抓後重新執行 build_board.py 產生本檔即可覆蓋最新資料。
+    價格以貼文當下為準，多數需私訊確認實際落地價。「—」表示該貼文未標價（交車照／需私訊）。<br>
+    追蹤來源（12）：飛翔重車Fly-高雄三民、二寶重機販賣部、少年董重車、小婷車庫、爵士輕重型機車買賣、長崎二輪、黃宥邁同好會、本田家族買賣版、HONDA DAX125 TW、台灣本田小狼系列國民車俱樂部、台灣HONDA臘腸狗DAX ST125改裝交流、黃宥邁。
   </div>
 </div>
 <script>
